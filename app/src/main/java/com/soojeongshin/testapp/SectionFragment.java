@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,12 +12,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import static com.soojeongshin.testapp.Constants.KEY_ALPHABET;
-
 public class SectionFragment extends Fragment {
 
     private PageViewModel mViewModel;
-    private String mAlphabet;
 
     public static SectionFragment newInstance(int index) {
         SectionFragment fragment = new SectionFragment();
@@ -28,10 +25,9 @@ public class SectionFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
-        if (savedInstanceState != null) {
-            mAlphabet = savedInstanceState.getString(KEY_ALPHABET);
-        } else {
+        if (savedInstanceState == null) {
             mViewModel.setAlphabet();
+            mViewModel.setColour();
         }
     }
 
@@ -42,20 +38,22 @@ public class SectionFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_main, container, false);
-        final TextView textView = root.findViewById(R.id.tv_alphabet);
-        mAlphabet = textView.getText().toString();
+        final WebView webView = root.findViewById(R.id.web_view);
+
         mViewModel.getAlphabet().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                textView.setText(s);
+                webView.loadData(s, "text/html", "utf-8");
+            }
+        });
+
+        mViewModel.getColour().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                webView.getSettings();
+                webView.setBackgroundColor(integer);
             }
         });
         return root;
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString(KEY_ALPHABET, mAlphabet);
     }
 }
