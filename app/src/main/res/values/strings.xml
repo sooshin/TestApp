@@ -2,5 +2,7 @@
     <string name="app_name">Test App</string>
     <string name="action_delete">Delete</string>
     <string name="action_insert">Insert</string>
+    <string name="action_next">Next</string>
+    <string name="action_previous">Previous</string>
     <string name="empty_view">No Page Added</string>
 </resources>

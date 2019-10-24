@@ -1,9 +1,12 @@
 package com.soojeongshin.testapp;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -23,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+
+        setupBottomAppBar();
 
         mFragments = new ArrayList<>();
         mFragments.add(SectionFragment.newInstance(0));
@@ -61,5 +66,35 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void setupBottomAppBar() {
+        setSupportActionBar(mBinding.bottomAppbar);
+        mBinding.bottomAppbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_next:
+                        int currentIndex = mBinding.viewpager.getCurrentItem();
+                        mBinding.viewpager.setCurrentItem(currentIndex +1);
+                        break;
+                }
+                return false;
+            }
+        });
+
+        mBinding.bottomAppbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int currentIndex = mBinding.viewpager.getCurrentItem();
+                mBinding.viewpager.setCurrentItem(currentIndex -1);
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }
