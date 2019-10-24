@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         mBinding.viewpager.setAdapter(mAdapter);
 
         insert();
+        delete();
     }
 
     private void insert() {
@@ -43,6 +44,21 @@ public class MainActivity extends AppCompatActivity {
                 int currentIndex = mBinding.viewpager.getCurrentItem();
                 mAdapter.addFragmentAtPosition(currentIndex, SectionFragment.newInstance(currentIndex));
                 mBinding.viewpager.setCurrentItem(currentIndex +1);
+            }
+        });
+    }
+
+    private void delete() {
+        mBinding.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int currentIndex = mBinding.viewpager.getCurrentItem();
+                mAdapter.removeFragmentAtPosition(currentIndex);
+                if (currentIndex == 0) {
+                    mBinding.viewpager.setCurrentItem(mFragments.size() - 1);
+                } else {
+                    mBinding.viewpager.setCurrentItem(currentIndex -1);
+                }
             }
         });
     }

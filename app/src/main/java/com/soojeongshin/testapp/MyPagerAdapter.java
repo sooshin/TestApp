@@ -13,11 +13,13 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
 
     private final Context mContext;
     private List<Fragment> mFragments;
+    private FragmentManager mFm;
 
     public MyPagerAdapter(Context context, FragmentManager fm, List<Fragment> fragments) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         mContext = context;
         mFragments = fragments;
+        mFm = fm;
     }
 
     void addFragmentAtPosition(int position, Fragment f) {
@@ -27,6 +29,16 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
             mFragments.add(position + 1, f);
         }
         notifyDataSetChanged();
+    }
+
+    void removeFragmentAtPosition(int position) {
+        if (!mFragments.isEmpty()) {
+            Fragment f = mFragments.remove(position);
+            if (f != null) {
+                mFm.beginTransaction().remove(f).commit();
+            }
+            notifyDataSetChanged();
+        }
     }
 
     /**
