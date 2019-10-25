@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.viewpager.widget.ViewPager;
 
 import com.soojeongshin.testapp.databinding.ActivityMainBinding;
 
@@ -40,6 +41,36 @@ public class MainActivity extends AppCompatActivity {
 
         insert();
         delete();
+
+        mBinding.viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == mFragments.size()-1) {
+                    // Disable the next button at the end of the page
+                    mBinding.bottomAppbar.getMenu().getItem(0).setEnabled(false);
+                    mBinding.bottomAppbar.getMenu().getItem(0).getIcon().setAlpha(128);
+                    enablePreviousButton();
+                } else if (position == 0) {
+                    // Disable the previous button at the beginning of the page
+                    mBinding.previous.setAlpha(0.5f);
+                    mBinding.previous.setEnabled(false);
+                    enableNextButton();
+                } else {
+                    enablePreviousButton();
+                    enableNextButton();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     private void insert() {
@@ -83,13 +114,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mBinding.bottomAppbar.setNavigationOnClickListener(new View.OnClickListener() {
+        mBinding.previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int currentIndex = mBinding.viewpager.getCurrentItem();
                 mBinding.viewpager.setCurrentItem(currentIndex -1);
             }
         });
+    }
+
+    private void enablePreviousButton() {
+        mBinding.previous.setEnabled(true);
+        mBinding.previous.setAlpha(1f);
+    }
+
+    private void enableNextButton() {
+        mBinding.bottomAppbar.getMenu().getItem(0).setEnabled(true);
+        mBinding.bottomAppbar.getMenu().getItem(0).getIcon().setAlpha(255);
     }
 
     @Override
