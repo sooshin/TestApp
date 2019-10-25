@@ -1,12 +1,9 @@
 package com.soojeongshin.testapp;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -37,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentManager fm = getSupportFragmentManager();
         mAdapter = new MyPagerAdapter(this, fm, mFragments,
-                mBinding.previous, mBinding.bottomAppbar.getMenu());
+                mBinding.previous, mBinding.next);
         mBinding.viewpager.setAdapter(mAdapter);
 
         insert();
@@ -100,17 +97,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupBottomAppBar() {
-        setSupportActionBar(mBinding.bottomAppbar);
-        mBinding.bottomAppbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+        mBinding.next.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_next:
-                        int currentIndex = mBinding.viewpager.getCurrentItem();
-                        mBinding.viewpager.setCurrentItem(currentIndex +1);
-                        break;
-                }
-                return false;
+            public void onClick(View v) {
+                int currentIndex = mBinding.viewpager.getCurrentItem();
+                mBinding.viewpager.setCurrentItem(currentIndex +1);
             }
         });
 
@@ -129,8 +120,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void disableNextButton() {
-        mBinding.bottomAppbar.getMenu().getItem(0).setEnabled(false);
-        mBinding.bottomAppbar.getMenu().getItem(0).getIcon().setAlpha(128);
+        mBinding.next.setEnabled(false);
+        mBinding.next.setAlpha(0.5f);
     }
 
     private void enablePreviousButton() {
@@ -139,13 +130,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void enableNextButton() {
-        mBinding.bottomAppbar.getMenu().getItem(0).setEnabled(true);
-        mBinding.bottomAppbar.getMenu().getItem(0).getIcon().setAlpha(255);
+        mBinding.next.setEnabled(true);
+        mBinding.next.setAlpha(1f);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
 }

@@ -1,7 +1,6 @@
 package com.soojeongshin.testapp;
 
 import android.content.Context;
-import android.view.Menu;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
@@ -17,10 +16,10 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
     private List<Fragment> mFragments;
     private FragmentManager mFm;
     private ImageButton mPreviousBtn;
-    private Menu mNextBtn;
+    private ImageButton mNextBtn;
 
     public MyPagerAdapter(Context context, FragmentManager fm, List<Fragment> fragments,
-                          ImageButton previousBtn, Menu nextBtn) {
+                          ImageButton previousBtn, ImageButton nextBtn) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         mContext = context;
         mFragments = fragments;
@@ -48,8 +47,8 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
             if (mFragments.size() <= 1) {
                 mPreviousBtn.setEnabled(true);
                 mPreviousBtn.setAlpha(0.5f);
-                mNextBtn.getItem(0).setEnabled(true);
-                mNextBtn.getItem(0).getIcon().setAlpha(128);
+                mNextBtn.setEnabled(true);
+                mNextBtn.setAlpha(0.5f);
             }
         }
     }
