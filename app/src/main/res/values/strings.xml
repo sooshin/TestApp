@@ -5,4 +5,6 @@
     <string name="action_next">Next</string>
     <string name="action_previous">Previous</string>
     <string name="empty_view">No Page Added</string>
+    <string name="previous_description">Previous button</string>
+    <string name="next_description">Next button</string>
 </resources>
