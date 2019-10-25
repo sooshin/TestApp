@@ -45,9 +45,9 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
             }
             notifyDataSetChanged();
             if (mFragments.size() <= 1) {
-                mPreviousBtn.setEnabled(true);
+                mPreviousBtn.setEnabled(false);
                 mPreviousBtn.setAlpha(0.5f);
-                mNextBtn.setEnabled(true);
+                mNextBtn.setEnabled(false);
                 mNextBtn.setAlpha(0.5f);
             }
         }
