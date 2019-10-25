@@ -94,11 +94,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int currentIndex = mBinding.viewpager.getCurrentItem();
                 mAdapter.removeFragmentAtPosition(currentIndex);
-                if (currentIndex == 0) {
-                    mBinding.viewpager.setCurrentItem(mFragments.size() - 1);
-                } else {
-                    mBinding.viewpager.setCurrentItem(currentIndex -1);
-                }
+                mBinding.viewpager.setCurrentItem(currentIndex -1);
             }
         });
     }
