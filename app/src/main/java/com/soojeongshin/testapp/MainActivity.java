@@ -45,20 +45,23 @@ public class MainActivity extends AppCompatActivity {
         mBinding.viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+                if (position == 0) {
+                    // Disable the previous button at the beginning of the page
+                    disablePreviousButton();
+                } else {
+                    enablePreviousButton();
+                }
             }
 
             @Override
             public void onPageSelected(int position) {
                 if (position == mFragments.size()-1) {
                     // Disable the next button at the end of the page
-                    mBinding.bottomAppbar.getMenu().getItem(0).setEnabled(false);
-                    mBinding.bottomAppbar.getMenu().getItem(0).getIcon().setAlpha(128);
+                    disableNextButton();
                     enablePreviousButton();
                 } else if (position == 0) {
                     // Disable the previous button at the beginning of the page
-                    mBinding.previous.setAlpha(0.5f);
-                    mBinding.previous.setEnabled(false);
+                    disablePreviousButton();
                     enableNextButton();
                 } else {
                     enablePreviousButton();
@@ -121,6 +124,16 @@ public class MainActivity extends AppCompatActivity {
                 mBinding.viewpager.setCurrentItem(currentIndex -1);
             }
         });
+    }
+
+    private void disablePreviousButton() {
+        mBinding.previous.setAlpha(0.5f);
+        mBinding.previous.setEnabled(false);
+    }
+
+    private void disableNextButton() {
+        mBinding.bottomAppbar.getMenu().getItem(0).setEnabled(false);
+        mBinding.bottomAppbar.getMenu().getItem(0).getIcon().setAlpha(128);
     }
 
     private void enablePreviousButton() {
