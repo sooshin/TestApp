@@ -10,6 +10,8 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import java.util.List;
 
+import static com.soojeongshin.testapp.Constants.ALPHA_DISABLE;
+
 public class MyPagerAdapter extends FragmentPagerAdapter {
 
     private final Context mContext;
@@ -46,9 +48,9 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
             notifyDataSetChanged();
             if (mFragments.size() <= 1) {
                 mPreviousBtn.setEnabled(false);
-                mPreviousBtn.setAlpha(0.5f);
+                mPreviousBtn.setAlpha(ALPHA_DISABLE);
                 mNextBtn.setEnabled(false);
-                mNextBtn.setAlpha(0.5f);
+                mNextBtn.setAlpha(ALPHA_DISABLE);
             }
         }
     }

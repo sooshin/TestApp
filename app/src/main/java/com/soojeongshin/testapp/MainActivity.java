@@ -14,6 +14,9 @@ import com.soojeongshin.testapp.databinding.ActivityMainBinding;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.soojeongshin.testapp.Constants.ALPHA_DISABLE;
+import static com.soojeongshin.testapp.Constants.ALPHA_ENABLE;
+
 public class MainActivity extends AppCompatActivity {
 
     private MyPagerAdapter mAdapter;
@@ -115,23 +118,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void disablePreviousButton() {
-        mBinding.previous.setAlpha(0.5f);
+        mBinding.previous.setAlpha(ALPHA_DISABLE);
         mBinding.previous.setEnabled(false);
     }
 
     private void disableNextButton() {
         mBinding.next.setEnabled(false);
-        mBinding.next.setAlpha(0.5f);
+        mBinding.next.setAlpha(ALPHA_DISABLE);
     }
 
     private void enablePreviousButton() {
         mBinding.previous.setEnabled(true);
-        mBinding.previous.setAlpha(1f);
+        mBinding.previous.setAlpha(ALPHA_ENABLE);
     }
 
     private void enableNextButton() {
         mBinding.next.setEnabled(true);
-        mBinding.next.setAlpha(1f);
+        mBinding.next.setAlpha(ALPHA_ENABLE);
     }
 
 }

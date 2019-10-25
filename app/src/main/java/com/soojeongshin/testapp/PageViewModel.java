@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.Random;
 
+import static com.soojeongshin.testapp.Constants.COLOR_BOUND;
+
 public class PageViewModel extends ViewModel {
 
     private MutableLiveData<String> mAlphabet = new MutableLiveData<>();
@@ -39,9 +41,9 @@ public class PageViewModel extends ViewModel {
 
     private Integer generateRandomColour() {
         Random random = new Random();
-        int r = random.nextInt(255);
-        int g = random.nextInt(255);
-        int b = random.nextInt(255);
+        int r = random.nextInt(COLOR_BOUND);
+        int g = random.nextInt(COLOR_BOUND);
+        int b = random.nextInt(COLOR_BOUND);
         return Color.rgb(r, g, b);
     }
 }
