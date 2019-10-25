@@ -45,7 +45,10 @@ public class SectionFragment extends Fragment {
         mViewModel.getAlphabet().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                mBinding.webView.loadData(s, "text/html", "utf-8");
+                float fontSize = getResources().getDimension(R.dimen.text_size);
+                mBinding.webView.getSettings().setDefaultFontSize((int) fontSize);
+                mBinding.webView.loadData("<html><body align='center'>" + s +"</body></html>",
+                        "text/html", "utf-8");
             }
         });
 
