@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
         mFragments.add(SectionFragment.newInstance(2));
 
         FragmentManager fm = getSupportFragmentManager();
-        mAdapter = new MyPagerAdapter(this, fm, mFragments);
+        mAdapter = new MyPagerAdapter(this, fm, mFragments,
+                mBinding.previous, mBinding.bottomAppbar.getMenu());
         mBinding.viewpager.setAdapter(mAdapter);
 
         insert();
